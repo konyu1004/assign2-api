@@ -1,22 +1,21 @@
 {
   "name": "assign2",
   "version": "1.0.0",
-  "main": "index.js",
+ "main": "api/duksung.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node api/duksung.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@google/genai": "^1.4.0",
-    "@modelcontextprotocol/sdk": "^1.12.2",
+    "@google/generative-ai": "^0.24.1",
     "dotenv": "^16.5.0",
     "express": "^5.1.0"
   },
   "devDependencies": {
     "@types/node": "^22.15.19"
-  },
-  "type": "module"
+  }
 }
