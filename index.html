@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>n행시 생성기</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 20px; max-width: 500px; margin: auto; }
+  input, button { font-size: 1rem; padding: 0.5em; margin-top: 10px; }
+  #result { margin-top: 20px; white-space: pre-wrap; background: #f0f0f0; padding: 10px; border-radius: 6px; }
+</style>
+</head>
+<body>
+  <h1>n행시 생성기</h1>
+  <label for="word">n행시 지을 단어 입력:</label><br />
+  <input type="text" id="word" placeholder="단어 입력" /><br />
+  <button id="generateBtn">n행시 생성</button>
+
+  <div id="result"></div>
+
+<script>
+  const btn = document.getElementById("generateBtn");
+  const resultDiv = document.getElementById("result");
+
+  btn.addEventListener("click", async () => {
+    const word = document.getElementById("word").value.trim();
+    if (!word) {
+      alert("단어를 입력해주세요!");
+      return;
+    }
+
+    resultDiv.textContent = "생성 중... 잠시만 기다려 주세요.";
+
+    try {
+      const response = await fetch("https://assign2-rho-inky.vercel.app/api/duksung", {  
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ word }),
+      });
+
+      if (!response.ok) {
+        const err = await response.json();
+        resultDiv.textContent = `오류: ${err.error || response.statusText}`;
+        return;
+      }
+
+      const data = await response.json();
+      resultDiv.textContent = data.answer || "결과가 없습니다.";
+    } catch (error) {
+      resultDiv.textContent = "서버와 통신 중 오류가 발생했습니다.";
+      console.error(error);
+    }
+  });
+</script>
+</body>
+</html>
