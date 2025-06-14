@@ -2,6 +2,8 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import dotenv from "dotenv";
 dotenv.config();
 
+console.log("API key length:", process.env.GEMINI_API_KEY?.length); 
+
 const ai = new GoogleGenerativeAI({ apiKey: process.env.GEMINI_API_KEY });
 
 export default async function handler(req, res) {
