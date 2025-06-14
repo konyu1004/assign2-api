@@ -47,10 +47,12 @@ export default async function handler(req, res) {
     const response = await result.response;
     const text = await response.text();
 
-    return res.status(200).json({ answer: text });
+   } catch (err) {
+  console.error("Gemini API 오류:", err); 
 
-  } catch (err) {
-    console.error("Gemini API 오류:", err);
-    return res.status(500).json({ error: err.message || "Gemini API 오류 발생" });
-  }
+  return res.status(500).json({
+    error: "AI 응답 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요."
+  });
+}
+
 }
